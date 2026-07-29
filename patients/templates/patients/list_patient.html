@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pasien</title>
+</head>
+
+<body>
+
+    <h1>Daftar Pasien</h1>
+
+    {% if patients %}
+
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Jenis Kelamin</th>
+                <th>Tanggal Lahir</th>
+                <th>Tanggal Masuk</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for patient in patients %}
+
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ patient.full_name }}</td>
+                <td>{{ patient.get_gender_display }}</td>
+                <td>{{ patient.birth_date }}</td>
+                <td>{{ patient.admission_date }}</td>
+                <td>{{ patient.get_status_display }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+        <p>Belum ada data pasien.</p>
+
+    {% endif %}
+
+</body>
+</html>
