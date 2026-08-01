@@ -10,12 +10,14 @@ def list_patient(request):
     return render(request, "patients/list_patient.html", context)
 
 #form penambahan pasien
-def add_patient(request, patient_id):
+def add_patient(request):
     return render(request, "patients/add_patient.html", )
 
 #detail setiap pasien
-def detail_patient(response):
-    return HttpResponse("detail patient")
+def detail_patient(request, patient_id):
+    patientID = Patient.objects.get(pk=patient_id)
+    context = {"patient" : patientID}
+    return render(request, "patients/detail_patient.html", context)
 
 
 
