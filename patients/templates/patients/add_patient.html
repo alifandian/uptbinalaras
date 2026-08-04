@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tambah Data</title>
+</head>
+<body>
+
+    {% if error_message %}
+        <p>{{error_message}}</p>
+    {% endif %}
+
+    <form action="{% url 'patients:add' %}" method="post">
+        {% csrf_token %}
+
+        <label for="full_name">Nama lengkap</label><br>
+        <input type="text" name="full_name" id="full_name"><br>
+
+        <p>Jenis Kelamin</p>
+        <select name="gender" id="gender">
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+        </select><br>
+
+        <label for="birth_date">Tanggal lahir:</label>
+        <input type="date" name="birth_date" id="birth_date"><br>
+
+        <label for="admission_date">Tanggal masuk:</label>
+        <input type="date" name="admission_date" id="admission_date"><br>
+
+        <p>Status</p>
+        <select name="status" id="status">
+            <option value="active">Active</option>
+            <option value="sakit">Sakit</option>
+            <option value="dikembalikan">Dikembalikan</option>
+        </select><br>
+
+        <label for="address">Alamat</label><br>
+        <input type="text" name="address" id="address"><br><br>
+
+        <button type="submit">Simpan</button>
+    </form>
+        
+</body>
+</html>

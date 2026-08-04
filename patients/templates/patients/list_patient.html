@@ -31,7 +31,7 @@
 
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ patient.full_name }}</td>
+                <td><a href="{% url 'patients:detail_patient' patient.id %}">{{ patient.full_name }}</a></td>
                 <td>{{ patient.get_gender_display }}</td>
                 <td>{{ patient.birth_date }}</td>
                 <td>{{ patient.admission_date }}</td>

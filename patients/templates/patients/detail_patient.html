@@ -50,6 +50,15 @@
                         <td>{{ patient.admission_date }}</td>
                     </tr>
 
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ patient.get_status_display}}</td>
+                    </tr>
+                    <tr>
+                        <th>Alamat</th>
+                        <td>{{ patient.address }}</td>
+                    </tr>
+
                 </tbody>
 
             </table>
