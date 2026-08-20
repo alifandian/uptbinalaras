@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Edit Data Pasien</title>
+</head>
+<body class="bg-light">
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+<div>
+        <div class="container mt-5" style="max-width: 700px;">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h2 class="mb-0">Edit Data Pasien</h2>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'patients:edit' patient.pk %}" method="post">
+                        {% csrf_token %}
+                        <label for="full_name">Nama lengkap</label><br>
+                        <input type="text" name="full_name" id="full_name" value="{{ patient.full_name }}"><br>
+                        <p>Jenis Kelamin</p>
+                        <select name="gender" id="gender">
+                            <option value="L" {% if patient.gender == "L" %}selected{% endif %}>Laki-laki</option>
+                            <option value="P" {% if patient.gender == "P" %}selected{% endif %}>Perempuan</option>
+                        </select><br>
+                        <label for="birth_date">Tanggal lahir:</label>
+                        <input type="date" name="birth_date" id="birth_date" value="{{ patient.birth_date|date:'Y-m-d' }}"><br>
+                        <label for="admission_date">Tanggal masuk:</label>
+                        <input type="date" name="admission_date" id="admission_date" value="{{ patient.admission_date|date:'Y-m-d' }}"><br>
+                        <p>Status</p>
+                        <select name="status" id="status">
+                            <option value="active" {% if patient.status == "active" %}selected{% endif %}>Active</option>
+                            <option value="sakit" {% if patient.status == "sakit" %}selected{% endif %}>Sakit</option>
+                            <option value="dikembalikan" {% if patient.status == "dikembalikan" %}selected{% endif %}>Dikembalikan</option>
+                        </select><br>
+                        <label for="address">Alamat</label><br>
+                        <input type="text" name="address" id="address" value="{{ patient.address }}"><br><br>
+                        <button type="submit">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>
