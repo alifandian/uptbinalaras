@@ -1,49 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Edit Data Pasien</title>
-</head>
-<body class="bg-light">
-    {% if error_message %}
-        <p>{{ error_message }}</p>
-    {% endif %}
+{% extends 'base.html' %}
+{% block title %}Edit Data Pasien{% endblock %}
 
-<div>
-        <div class="container mt-5" style="max-width: 700px;">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h2 class="mb-0">Edit Data Pasien</h2>
-                </div>
-                <div class="card-body">
-                    <form action="{% url 'patients:edit' patient.pk %}" method="post">
-                        {% csrf_token %}
+
+{% block content %}
+    <div class="container mt-5" style="max-width: 700px;">
+        <div class="card shadow">
+            <div class="card-header">
+                <h2 class="mb-0">Edit Data Pasien</h2>
+            </div>
+            <div class="card-body">
+                {% if error_message %}
+                <p>{{ error_message }}</p>
+                {% endif %}
+                <form action="{% url 'patients:edit' patient.pk %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
                         <label for="full_name">Nama lengkap</label><br>
-                        <input type="text" name="full_name" id="full_name" value="{{ patient.full_name }}"><br>
-                        <p>Jenis Kelamin</p>
-                        <select name="gender" id="gender">
-                            <option value="L" {% if patient.gender == "L" %}selected{% endif %}>Laki-laki</option>
-                            <option value="P" {% if patient.gender == "P" %}selected{% endif %}>Perempuan</option>
-                        </select><br>
-                        <label for="birth_date">Tanggal lahir:</label>
-                        <input type="date" name="birth_date" id="birth_date" value="{{ patient.birth_date|date:'Y-m-d' }}"><br>
-                        <label for="admission_date">Tanggal masuk:</label>
-                        <input type="date" name="admission_date" id="admission_date" value="{{ patient.admission_date|date:'Y-m-d' }}"><br>
-                        <p>Status</p>
-                        <select name="status" id="status">
-                            <option value="active" {% if patient.status == "active" %}selected{% endif %}>Active</option>
-                            <option value="sakit" {% if patient.status == "sakit" %}selected{% endif %}>Sakit</option>
-                            <option value="dikembalikan" {% if patient.status == "dikembalikan" %}selected{% endif %}>Dikembalikan</option>
-                        </select><br>
-                        <label for="address">Alamat</label><br>
-                        <input type="text" name="address" id="address" value="{{ patient.address }}"><br><br>
-                        <button type="submit">Simpan</button>
-                    </form>
-                </div>
+                            <input type="text" name="full_name" id="full_name" value="{{ patient.full_name }}"><br>
+                    </div>
+                    <!-- ===================== JENIS KELAMIN ===================== -->
+                    <div class="mb-3">
+                        <label class="form-label d-block">Jenis Kelamin</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="gender_L" value="L" 
+                            {% if patient.gender == "L" %}checked{% endif %} required>
+                            <label class="form-check-label" for="gender_L">
+                                Laki-laki
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="gender_P" value="P"
+                            {% if patient.gender == "P" %}checked{% endif %}>
+                            <label class="form-check-label" for="gender_P">
+                                Perempuan
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ===================== TANGGAL LAHIR & TANGGAL MASUK ===================== -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="birth_date" class="form-label">Tanggal Lahir</label>
+                            <input type="date" class="form-control" name="birth_date" id="birth_date"
+                                value="{{ patient.birth_date|date:'Y-m-d' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="admission_date" class="form-label">Tanggal Masuk</label>
+                            <input type="date" class="form-control" name="admission_date" id="admission_date"
+                                value="{{ patient.admission_date|date:'Y-m-d' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label d-block">Status</label>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="status_active"
+                                value="active" {% if patient.status == "active" %}selected{% endif %}>
+                            <label class="form-check-label" for="status_active">Active</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="status_active"
+                                value="sakit" {% if patient.status == "sakit" %}selected{% endif %}>
+                            <label class="form-check-label" for="status_active">Sakit</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="status_active "
+                                value="dikembalikan" {% if patient.status == "dikembalikan" %}selected{% endif %}>
+                            <label class="form-check-label" for="status_active">Dikembalikan</label>
+                        </div>
+
+                        <!-- ===================== ALAMAT ===================== -->
+                        <div class="mb-4">
+                            <label for="address" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" name="address" id="address"
+                                value="{{ patient.address }}" required>
+                        </div>
+
+                         <!-- ===================== TOMBOL AKSI ===================== -->
+                            <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="{% url 'patients:detail_patient' patient.pk %}" class="btn btn-secondary">Batal</a>
+                        </div>
+                </form>
             </div>
         </div>
-</div>
-</body>
-</html>
+    </div>
+{% endblock %}

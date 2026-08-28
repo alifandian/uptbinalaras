@@ -1,84 +1,35 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block title %}Daftar Pasien{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Pasien</title>
+{% block extra_head %}
+<style>
+    .status-card {
+        border-radius: 8px;
+        padding: 16px;
+        text-align: center;
+        font-weight: 600;
+    }
+    .status-card .status-label { font-size: 0.9rem; margin-bottom: 4px; }
+    .status-card .status-count { font-size: 1.5rem; }
+    .status-card.active { background-color: #e9f9ee; border: 1px solid #28a745; color: #28a745; }
+    .status-card.sakit { background-color: #fdecea; border: 1px solid #dc3545; color: #dc3545; }
+    .status-card.dikembalikan { background-color: #e7f1ff; border: 1px solid #0d6efd; color: #0d6efd; }
 
-    <!-- Bootstrap 5 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    .search-input { border-radius: 50px; padding: 8px 20px; }
 
-    <style>
-        /* ===== Native CSS tambahan (di luar Bootstrap) ===== */
+    .btn-tambah {
+        border-radius: 50px;
+        background-color: #ffe08a;
+        border: none;
+        font-weight: 600;
+        padding: 8px 20px;
+        white-space: nowrap;
+    }
+    .btn-tambah:hover { background-color: #ffd666; }
+</style>
+{% endblock %}
 
-        body {
-            background-color: #f8f9fa;
-        }
-
-        /* --- Status Cards (Active / Sakit / Dikembalikan) --- */
-        .status-card {
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .status-card .status-label {
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-        }
-
-        .status-card .status-count {
-            font-size: 1.5rem;
-        }
-
-        .status-card.active {
-            background-color: #e9f9ee;
-            border: 1px solid #28a745;
-            color: #28a745;
-        }
-
-        .status-card.sakit {
-            background-color: #fdecea;
-            border: 1px solid #dc3545;
-            color: #dc3545;
-        }
-
-        .status-card.dikembalikan {
-            background-color: #e7f1ff;
-            border: 1px solid #0d6efd;
-            color: #0d6efd;
-        }
-
-        /* --- Search bar bentuk pill --- */
-        .search-input {
-            border-radius: 50px;
-            padding: 8px 20px;
-        }
-
-        /* --- Tombol tambah data --- */
-        .btn-tambah {
-            border-radius: 50px;
-            background-color: #ffe08a;
-            border: none;
-            font-weight: 600;
-            padding: 8px 20px;
-            white-space: nowrap;
-        }
-
-        .btn-tambah:hover {
-            background-color: #ffd666;
-        }
-
-
-    </style>
-</head>
-
-<body>
-
-    <div class="container-fluid py-4 px-4">
+{% block content %}
 
         <h1 class="mb-4">Daftar Pasien</h1>
 
@@ -151,9 +102,4 @@
         <p>Belum ada data pasien.</p>
         {% endif %}
 
-
-    </div>
-
-</body>
-
-</html>
+{% endblock %}
