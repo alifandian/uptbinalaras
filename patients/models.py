@@ -10,6 +10,8 @@ class Patient(models.Model):
         ('active','Active'),
         ('sakit','Sakit'),
         ('dikembalikan','Dikembalikan'),
+        ('hilang','Hilang'),
+        ('meninggal','Meninggal')
     ]
 
     full_name = models.CharField(max_length=100)
@@ -20,7 +22,8 @@ class Patient(models.Model):
     admission_date = models.DateField()
     status = models.CharField(max_length=20,
                               choices=STATUS_CHOICE,
-                              default='active',)
+                              default='active',
+                             )
     address = models.CharField(max_length=255)
 
     def __str__(self):

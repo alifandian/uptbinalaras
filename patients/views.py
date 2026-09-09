@@ -3,6 +3,8 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.urls import reverse
 from .models import Patient
 from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 # Menampilkan halaman pasien
@@ -11,7 +13,8 @@ from django.views import generic
     #all_patients = Patient.objects.all()
     #context = {"patients" : all_patients}
     #return render(request, "patients/list_patient.html", context)
-class ListPatient(generic.ListView):
+
+class ListPatient(LoginRequiredMixin, generic.ListView):
     context_object_name = "patients"
     template_name = "patients/list_patient.html"
 
@@ -26,9 +29,12 @@ class ListPatient(generic.ListView):
         context["active_count"] = Patient.objects.filter(status='active').count()
         context["sakit_count"] = Patient.objects.filter(status='sakit').count()
         context["dikembalikan_count"] = Patient.objects.filter(status='dikembalikan').count()
+        context["hilang_count"] = Patient.objects.filter(status='hilang').count()
+        context["meninggal_count"] = Patient.objects.filter(status='meninggal').count()
 
         return context
 #form penambahan pasien
+@login_required
 def add_patient(request):
     return render(request, "patients/add_patient.html", )
 
@@ -38,7 +44,7 @@ def add_patient(request):
     context = {"patient" : patientID}
     return render(request, "patients/detail_patient.html", context)
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
     model = Patient
     template_name = "patients/detail_patient.html"
 
