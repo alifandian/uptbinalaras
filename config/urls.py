@@ -20,6 +20,7 @@ from django.urls import path, include
 print("CONFIG URLS DIBACA")
 
 urlpatterns = [
+    path("", include("home.urls")),
     path("accounts/", include("accounts.urls")),
     path("patients/", include("patients.urls")),
     path("admin/", admin.site.urls),

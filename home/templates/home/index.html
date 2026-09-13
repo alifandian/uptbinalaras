@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMAPAURI — Sistem Manajemen Pasien UPT Bina Laras Riau</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@300;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'home/css/index.css' %}">
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero" id="hero">
+        <div class="container hero-inner">
+            <div class="row align-items-center gy-5">
+
+                <div class="col-lg-6">
+                    <div class="brand-logos">
+                        <img src="{% static 'home/img/logo-dinsos-riau.png' %}" alt="Logo Dinas Sosial Provinsi Riau" class="logo-img">
+                        <span class="logo-divider"></span>
+                        <img src="{% static 'home/img/logo-upt-binalaras.jpg' %}" alt="Logo UPT Bina Laras Provinsi Riau" class="logo-img">
+                    </div>
+
+                    <h1 class="hero-title">
+                        <span class="hero-title-thin">Kelola Data Pasien</span>
+                        <span class="hero-title-bold">LEBIH CEPAT &amp; TERINTEGRASI</span>
+                    </h1>
+
+                    <p class="hero-desc">
+                        SIMAPAURI (Sistem Manajemen Pasien UPT Bina Laras Riau) adalah platform digital
+                        yang dirancang untuk membantu pegawai UPT Bina Laras Provinsi Riau dalam mendata,
+                        memantau status, dan mengelola riwayat penanganan pasien secara terpusat —
+                        cepat, akurat, dan dapat diakses kapan saja.
+                    </p>
+
+                    <a href="{% url 'accounts:login' %}" class="btn-cta">
+                        <i class="bi bi-box-arrow-in-right"></i> Masuk ke SIMAPAURI
+                    </a>
+                </div>
+
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="feature-panel">
+                        <div class="feature-grid-bg"></div>
+
+                        <div class="feature-card card-1">
+                            <i class="bi bi-person-vcard"></i>
+                            <span>Data Pasien</span>
+                        </div>
+                        <div class="feature-card card-2">
+                            <i class="bi bi-file-earmark-medical"></i>
+                            <span>Rekam Medis</span>
+                        </div>
+                        <div class="feature-card card-3">
+                            <i class="bi bi-heart-pulse"></i>
+                            <span>Status Pasien</span>
+                        </div>
+                        <div class="feature-card card-4">
+                            <i class="bi bi-bar-chart-line"></i>
+                            <span>Laporan</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <a href="#developer" class="scroll-indicator" aria-label="Scroll ke bawah">
+            <i class="bi bi-chevron-down"></i>
+        </a>
+    </header>
+
+    <!-- DEVELOPER SECTION -->
+    <section class="developer-section" id="developer">
+        <div class="container">
+            <div class="row align-items-center gy-5">
+
+                <div class="col-lg-4 text-center">
+                    <img src="{% static 'home/img/foto.jpeg' %}" alt="Foto Alif Andian Achmad" class="developer-photo">
+                </div>
+
+                <div class="col-lg-8">
+                    <span class="section-label">Developer</span>
+                    <h2>Alif Andian Achmad</h2>
+                    <p>
+                        Halo, saya Alif Andian Achmad, mahasiswa Universitas Islam Riau. SIMAPAURI saya
+                        bangun untuk membantu pegawai UPT Bina Laras Provinsi Riau mengelola data pasien
+                        secara lebih rapi dan efisien, sekaligus menjadi bagian dari portofolio saya
+                        dalam pengembangan aplikasi web berbasis Django.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://github.com/alifandian" target="_blank" rel="noopener noreferrer" class="social-btn">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                        <a href="https://www.instagram.com/alif.andian/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                            <i class="bi bi-instagram"></i> Instagram
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 SIMAPAURI — UPT Bina Laras Provinsi Riau</p>
+    </footer>
+
+</body>
+</html>
