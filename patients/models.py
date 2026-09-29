@@ -25,6 +25,10 @@ class Patient(models.Model):
                               default='active',
                              )
     address = models.CharField(max_length=255)
+    nomor_register = models.CharField(max_length=30,
+                                      blank=False,
+                                      null=True,
+                                      unique=True)
 
     def __str__(self):
         return f"{self.full_name} ({self.get_status_display()})"

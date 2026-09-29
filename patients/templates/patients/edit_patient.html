@@ -16,6 +16,11 @@
                     {% csrf_token %}
 
                     <div class="mb-3">
+                        <label for="full_name">Nomor Register</label><br>
+                            <input type="text" name="nomor_register" id="nomor_register" value="{{ patient.nomor_register}}"><br>
+                    </div>
+
+                    <div class="mb-3">
                         <label for="full_name">Nama lengkap</label><br>
                             <input type="text" name="full_name" id="full_name" value="{{ patient.full_name }}"><br>
                     </div>

@@ -11,10 +11,21 @@
         </div>
 
         <div class="card-body">
-
+            {% if error_message %}
+            <div class="p-3 mb-2 bg-gradient-danger"> 
+                <p>{{ error_message }}</p>
+            </div>
+            {% endif %}
             <!-- action="" berarti submit ke url yang sama (halaman form ini sendiri) -->
             <form action="{% url 'patients:add' %}" method="post">
                 {% csrf_token %}
+
+                <!-- ===================== Nomor Register ===================== -->
+                <div class="mb-3">
+                    <label for="nomor_register" class="nomor_register">Nomor Register</label>
+                    <input type="text" class="form-control" name="nomor_register" id="nomor_register" required>
+                </div>
+
 
                 <!-- ===================== NAMA LENGKAP ===================== -->
                 <div class="mb-3">

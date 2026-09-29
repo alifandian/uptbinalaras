@@ -17,9 +17,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class ListPatient(LoginRequiredMixin, generic.ListView):
     context_object_name = "patients"
     template_name = "patients/list_patient.html"
-
+        
     def get_queryset(self):
-        return Patient.objects.all()
+        queryset = Patient.objects.all()
+        status = self.request.GET.get('status')
+        if status:
+            queryset = queryset.filter(status=status)
+        return queryset
 
     def get_context_data(self, **kwargs):
         # WAJIB panggil super() dulu, supaya context bawaan (mis. "patients")
@@ -31,6 +35,7 @@ class ListPatient(LoginRequiredMixin, generic.ListView):
         context["dikembalikan_count"] = Patient.objects.filter(status='dikembalikan').count()
         context["hilang_count"] = Patient.objects.filter(status='hilang').count()
         context["meninggal_count"] = Patient.objects.filter(status='meninggal').count()
+
 
         return context
 #form penambahan pasien
@@ -50,6 +55,7 @@ class DetailView(LoginRequiredMixin, generic.DetailView):
 
 def add(request):
     try:
+        nomor_register=request.POST["nomor_register"]
         full_name=request.POST["full_name"]
         gender=request.POST["gender"]
         birth_date=request.POST["birth_date"]
@@ -63,12 +69,17 @@ def add(request):
                       {"error_message" : "anda tidak mengisi form dengan lengkap "},)
     
     else :
-        p = Patient(full_name=full_name, 
+        p = Patient(nomor_register=nomor_register,
+                    full_name=full_name, 
                     gender=gender, 
                     birth_date=birth_date, 
                     admission_date=admission_date,
                     status=status,
                     address=address,)
+        if Patient.objects.filter(nomor_register=nomor_register).exists():
+            return render(request, 
+                          "patients/add_patient.html",
+                          {"error_message" : "nomor register sudah ada "},)
         p.save()
         return HttpResponseRedirect(reverse("patients:list_patient"))
 
@@ -82,6 +93,7 @@ def edit(request, pk):
 
     if request.method == "POST":
         try:
+            patient.nomor_register = request.POST["nomor_register"]
             patient.full_name = request.POST["full_name"]
             patient.gender = request.POST["gender"]
             patient.birth_date = request.POST["birth_date"]
@@ -94,9 +106,12 @@ def edit(request, pk):
                 "error_message": "Anda tidak mengisi form dengan lengkap.",
             })
         else:
+            if Patient.objects.filter(nomor_register=patient.nomor_register).exclude(pk=pk).exists():
+                return render(request, "patients/edit_patient.html",{
+                                  "patient": patient,
+                                  "error_message" : "nomor register sudah ada "},)
             patient.save()
             return HttpResponseRedirect(reverse("patients:list_patient"))
 
     # request.method == "GET" -> tampilkan form terisi data pasien saat ini
     return render(request, "patients/edit_patient.html", {"patient": patient})
-
