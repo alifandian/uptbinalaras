@@ -17,8 +17,14 @@
             </div>
             {% endif %}
             <!-- action="" berarti submit ke url yang sama (halaman form ini sendiri) -->
-            <form action="{% url 'patients:add' %}" method="post">
+            <form action="{% url 'patients:add' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+
+                <!-- ===================== Foto ===================== -->
+                <div class="mb-3">
+                    <label for="foto" class="foto">Foto</label>
+                    <input type="file" class="form-control" name="foto" id="foto" accept="image/*">
+                </div>
 
                 <!-- ===================== Nomor Register ===================== -->
                 <div class="mb-3">

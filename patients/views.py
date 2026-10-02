@@ -69,13 +69,15 @@ def add(request):
                       {"error_message" : "anda tidak mengisi form dengan lengkap "},)
     
     else :
+        foto=request.FILES.get("foto")
         p = Patient(nomor_register=nomor_register,
                     full_name=full_name, 
                     gender=gender, 
                     birth_date=birth_date, 
                     admission_date=admission_date,
                     status=status,
-                    address=address,)
+                    address=address,
+                    foto=foto,)
         if Patient.objects.filter(nomor_register=nomor_register).exists():
             return render(request, 
                           "patients/add_patient.html",
@@ -115,3 +117,5 @@ def edit(request, pk):
 
     # request.method == "GET" -> tampilkan form terisi data pasien saat ini
     return render(request, "patients/edit_patient.html", {"patient": patient})
+
+

@@ -29,6 +29,9 @@ class Patient(models.Model):
                                       blank=False,
                                       null=True,
                                       unique=True)
+    foto = models.ImageField(upload_to="foto",
+                             null=True,
+                             blank=True)
 
     def __str__(self):
         return f"{self.full_name} ({self.get_status_display()})"
