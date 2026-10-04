@@ -1,6 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}Edit Data Pasien{% endblock %}
 
+{% block extra_head %}
+<style>
+    .patient-photo-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+    .patient-photo {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 3px solid #dee2e6;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+    .patient-photo-placeholder {
+        width: 180px;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 10px;
+        border-radius: 12px;
+        border: 2px dashed #adb5bd;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
     <div class="container mt-5" style="max-width: 700px;">
@@ -12,9 +42,24 @@
                 {% if error_message %}
                 <p>{{ error_message }}</p>
                 {% endif %}
-                <form action="{% url 'patients:edit' patient.pk %}" method="post">
+                <form action="{% url 'patients:edit' patient.pk %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
+                    
+                    <div class="patient-photo-wrapper">
+                        {% if patient.foto %}
+                        <img src="{{ patient.foto.url }}" alt="Foto {{ patient.full_name }}" class="patient-photo">
+                        {% else %}
+                        <div class="patient-photo-placeholder">
+                        Tidak ada foto
+                        </div>
+                        {% endif %}
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="foto" class="foto">Foto</label>
+                        <input type="file" class="form-control" name="foto" id="foto" accept="image/*" value="{{ patient.foto }}">
+                    </div>
+                    
                     <div class="mb-3">
                         <label for="full_name">Nomor Register</label><br>
                             <input type="text" name="nomor_register" id="nomor_register" value="{{ patient.nomor_register}}"><br>
@@ -68,27 +113,27 @@
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="status_active"
+                            <input class="form-check-input" type="radio" name="status" id="status_sakit"
                                 value="sakit" {% if patient.status == "sakit" %}selected{% endif %}>
-                            <label class="form-check-label" for="status_active">Sakit</label>
+                            <label class="form-check-label" for="status_sakit">Sakit</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="status_active "
+                            <input class="form-check-input" type="radio" name="status" id="status_dikembalikan"
                                 value="dikembalikan" {% if patient.status == "dikembalikan" %}selected{% endif %}>
-                            <label class="form-check-label" for="status_active">Dikembalikan</label>
+                            <label class="form-check-label" for="status_dikembalikan">Dikembalikan</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="status_active "
+                            <input class="form-check-input" type="radio" name="status" id="status_hilang"
                                 value="hilang" {% if patient.status == "hilang" %}selected{% endif %}>
-                            <label class="form-check-label" for="status_active">Hilang</label>
+                            <label class="form-check-label" for="status_hilang">Hilang</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="status_active "
+                            <input class="form-check-input" type="radio" name="status" id="status_meninggal
                                 value="meninggal" {% if patient.status == "meninggal" %}selected{% endif %}>
-                            <label class="form-check-label" for="status_active">Meninggal</label>
+                            <label class="form-check-label" for="status_meninggal">Meninggal</label>
                         </div>
 
                         <!-- ===================== ALAMAT ===================== -->

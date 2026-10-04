@@ -108,10 +108,14 @@ def edit(request, pk):
                 "error_message": "Anda tidak mengisi form dengan lengkap.",
             })
         else:
+            
             if Patient.objects.filter(nomor_register=patient.nomor_register).exclude(pk=pk).exists():
                 return render(request, "patients/edit_patient.html",{
                                   "patient": patient,
                                   "error_message" : "nomor register sudah ada "},)
+            foto = request.FILES.get("foto")
+            if foto is not None :
+                patient.foto = foto
             patient.save()
             return HttpResponseRedirect(reverse("patients:list_patient"))
 
